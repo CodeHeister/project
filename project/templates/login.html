@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+
+{# English #}
+{% block lang %}lang="en"{% endblock %}
+
+{# Title #}
+{% block title %}Login | Project{% endblock %}
+
+{# Description #}
+{% block description %}Login Page{% endblock %}
+
+{# Extra head tags #}
+{% block head %}
+<!--
+	<link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+-->
+	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="preload" href="{% static "src/css/login.css" %}" as="style"/>
+	<link rel="stylesheet" href="{% static "src/css/login.css" %}"/>
+{% endblock %}
+
+{# body content #}
+{% block content %}
+<div class="container">
+	<div class="text-center align-self-center centrify">
+		<div class="section">
+			<h6 class="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
+			<input class="hidden-checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+			<label for="reg-log"></label>
+			<div class="card-3d-wrap mx-auto">
+				<div class="card-3d-wrapper">
+					<div class="card-front">
+						<div class="center-wrap">
+							<div class="section">
+								<h4 class="mb-4 pb-3">Log In</h4>
+								<form action="{% url 'login' %}" method="post" class="vert-form">
+									{% csrf_token %}
+									{% for field in login_form %}
+									{% if field.field.widget.input_type != 'hidden' %}
+									<div class="form-group">
+									{% endif %}
+										{{ field }}
+									{% if field.field.widget.input_type != 'hidden' %}
+									</div>	
+									{% endif %}
+									{% if field.errors %}
+										<ul class="mt-2 errorlist">
+											{% for error in field.errors %}
+											<li>{{ error }}</li>
+											{% endfor %}
+										</ul>
+									{% endif %}
+									{% endfor %}
+									<input type="submit" class="btn mt-4"/>
+									<p class="mb-0 mt-2 text-center"><a href="#0" class="link">Forgot your password?</a></p>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="card-back">
+						<div class="center-wrap">
+							<div class="section">
+								<h4 class="mb-4 pb-3">Sign Up</h4>
+								<form action="{% url 'login' %}" method="post" class="vert-form">
+									{% csrf_token %}
+									{% for field in signup_form %}
+									{% if field.field.widget.input_type != 'hidden' %}
+									<div class="form-group">
+									{% endif %}
+										{{ field }}
+									{% if field.field.widget.input_type != 'hidden' %}
+									</div>	
+									{% endif %}
+									{% if field.errors %}
+										<ul class="mt-2 errorlist">
+											{% for error in field.errors %}
+											<li>{{ error }}</li>
+											{% endfor %}
+										</ul>
+									{% endif %}
+									{% endfor %}
+									<input type="submit" class="btn mt-2"/>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% if messages %}
+	<ul class="messages">
+		{% for message in messages %}
+			<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+		{% endfor %}
+	</ul>
+{% endif %}
+{% endblock %}

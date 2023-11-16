@@ -1,0 +1,33 @@
+{% load static %}
+{% load macros %}
+
+{% macro title %}
+    {% block title %}{% endblock %}
+{% endmacro %}
+
+<!DOCTYPE html>
+<html {% block lang %}{% endblock %}>
+	<head>
+		<meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>{% use_macro title %}</title>
+		<meta name="author" content=""/>
+		<meta name="description" content="{% use_macro title %}"/>
+		<meta name="robots" content="index, follow">
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="https://127.0.0.1/">
+		<meta name="twitter:description" content="{% block description %}{% endblock %}">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="{% use_macro title %}">
+		<link rel="apple-touch-icon" sizes="180x180" href="{% static "/src/image/apple-touch-icon.png" %}">
+		<link rel="icon" type="/image/png" sizes="32x32" href="{% static "/src/image/favicon-32x32.png" %}">
+		<link rel="icon" type="/image/png" sizes="16x16" href="{% static "/src/image/favicon-16x16.png" %}">
+		<link rel="preload" href="{% static "/fonts/inter.ttf" %}" as="font">
+		{% block head %}{% endblock %}
+		<link rel="stylesheet" href="{% static "/src/css/base.css" %}"/>
+	</head>
+	<body translate="no">
+		{% block content %}{% endblock %}
+	</body>
+</html>
+

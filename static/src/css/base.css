@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+@font-face {
+	font-family: 'Inter';
+	src 		: url("/fonts/inter.ttf");
+	font-display: swap;
+}
+
+:root {
+	--bg-color-primary: #1f2029; 
+	--bg-color-secondary: #2a2b38;
+	--fg-color-primary: #c4c3ca;
+	--btn-bg-color-primary: #ffeba7;
+	--btn-fg-color-primary: #102770;
+	--link-color: #3291ff;
+	--font-primary: 'Poppins';
+	--font-secondary: 'Inter';
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+	background-color: var(--bg-color-primary) !important;
+}
+
+body {
+	font-family: var(--font-primary), var(--font-secondary), sans-serif;
+	font-weight: 300;
+	line-height: 1.7;
+	color: var(--fg-color-primary);
+	overflow-x: hidden;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+a {
+	color: var(--link-color);
+	text-decoration: none;
+	cursor: pointer;
+	transition: color 200ms linear;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.full-height{
+  min-height: 100vh;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+	body {
+		font-size: 0.7rem;
+	}
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+	body {
+		font-size: 0.75rem;
+	}
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+	body {
+		font-size: 0.8rem;
+	}
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+	body {
+		font-size: 0.9rem;
+	}
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+	body {
+		font-size: 0.95rem;
+	}
+}

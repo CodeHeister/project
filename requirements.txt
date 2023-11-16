@@ -1,0 +1,10 @@
+asgiref==3.7.2
+bcrypt==4.0.1
+Django==4.2.7
+django-filter==23.3
+django-macros==0.4.0
+djangorestframework==3.14.0
+fontawesomefree==6.4.2
+Markdown==3.5.1
+pytz==2023.3.post1
+sqlparse==0.4.4
