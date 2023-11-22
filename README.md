@@ -34,4 +34,4 @@ Demo sandbox is available [here](https://project1-5ftmr1z3.b4a.run) _(__don't us
     - `python3 manage.py makemigrations && python3 manage.py migrate`
     - `python3 manage.py runserver 127.0.0.1:8000`
 
-To see result go to [localhost page](127.0.0.1:8000)
+To see result go to [localhost page](http://127.0.0.1:8000)
