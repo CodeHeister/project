@@ -12,17 +12,17 @@ User = get_user_model()
 
 class NameWidget(widgets.TextInput):
     def render(self, name, value, attrs=None, renderer=None):
-        attrs = {"class" : "form-style", "placeholder" : "Your Full Name", "autocomplete" : "off"}
+        attrs = {"class": "form-style", "placeholder": "Your Full Name", "autocomplete": "off"}
         return mark_safe(u'''<i class="input-icon uil uil-user"></i>%s''' % (super(NameWidget, self).render(name, value, attrs)))
 
 class UsernameWidget(widgets.TextInput):
     def render(self, name, value, attrs=None, renderer=None):
-        attrs = {"class" : "form-style", "placeholder" : "Your Username", "autocomplete" : "off"}
+        attrs = {"class": "form-style", "placeholder": "Your Username", "autocomplete": "off"}
         return mark_safe(u'''<i class="input-icon uil uil-at"></i>%s''' % (super(UsernameWidget, self).render(name, value, attrs)))
 
 class PasswordWidget(widgets.PasswordInput):
     def render(self, name, value, attrs=None, renderer=None):
-        attrs = {"class" : "form-style", "type" : "password", "placeholder" : "Your Password", "autocomplete" : "off"}
+        attrs = {"class": "form-style", "type": "password", "placeholder": "Your Password", "autocomplete": "off"}
         return mark_safe(u'''<i class="input-icon uil uil-lock-alt"></i>%s''' % (super(PasswordWidget, self).render(name, value, attrs)))
 
 class SignupForm(forms.ModelForm):
@@ -32,10 +32,10 @@ class SignupForm(forms.ModelForm):
         model = User
         fields = ['name', 'username', 'password', 'signup']
         widgets = {
-                'name' : NameWidget(),
-                'username' : UsernameWidget(),
-                'password' : PasswordWidget()
-                }
+                'name': NameWidget(),
+                'username': UsernameWidget(),
+                'password': PasswordWidget()
+            }
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -75,6 +75,3 @@ class LoginForm(forms.Form):
 
             if not user.exists():
                 self.add_error('username', 'This username doesn\'t exists')
-
-class LogoutForm(forms.Form):
-    logout = forms.BooleanField(widget=forms.HiddenInput, initial=True)

@@ -1,0 +1,110 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 2em;
+	width: 100%;
+	padding: 4em 1em 0em 1em;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.users {
+	display: grid;
+	flex-direction: column;
+	gap: 1.5em;
+}
+
+.user {
+	display: flex;
+	align-content: stretch;
+	align-items: center;
+	gap: 1em;
+    background-color: var(--bg-color-secondary);
+    background-image: url('../../images/pat.svg');
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 1em;
+	padding: 1em;
+}
+
+.user .user-icon {
+	font-size: 1.5em;
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+}
+
+.username {
+	font-size: 0.75em;
+	color: var(--btn-bg-color-primary);
+}
+
+.btn{  
+  border-radius: 0.3em;
+  font-size: 0.95em;
+  font-weight: 600;
+  text-transform: uppercase;
+  -webkit-transition : color 200ms linear, background-color 200ms linear, box-shadow 200ms linear;
+  transition: color 200ms linear, background-color 200ms linear, box-shadow 200ms linear;
+  letter-spacing: 1px;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  text-align: center;
+  border: none;
+  background-color: var(--btn-bg-color-primary);
+  color: var(--btn-fg-color-primary);
+  box-shadow: 0 8px 24px 0 rgba(255,235,167,.2);
+}
+.btn:active,
+.btn:focus{  
+  background-color: var(--btn-bg-color-primary);
+  color: var(--btn-fg-color-primary);
+  box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+}
+.btn:hover{  
+  background-color: var(--btn-fg-color-primary);
+  color: var(--btn-bg-color-primary);
+  box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+}
+
+@media only screen and (max-width: 768px) {
+	.users {
+		grid-template-columns: repeat(auto-fill, minmax(7em, 1fr));
+	}
+
+	.user {
+		flex-direction: column;
+	}
+
+	.info {
+		text-align: center;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.users {
+		grid-template-columns: repeat(auto-fill, minmax(14em, 1fr));
+	}
+
+	.user {
+		flex-direction: row;
+	}
+
+	.user i:last-child {
+		margin-left: auto;
+	}
+
+}

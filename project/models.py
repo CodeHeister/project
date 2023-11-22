@@ -5,10 +5,11 @@ from datetime import datetime
 from django.contrib.auth.hashers import make_password
 
 class UserManager(BaseUserManager):
-    def create_user(self, name, username, password=None):
+    def create_user(self, name, username, password=None, **kwargs):
         if not name or not username:
             raise ValueError('Users must have an email address')
 
+        user = self.model(name=name, username=username, **kwargs)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -39,7 +40,7 @@ class User(AbstractBaseUser):
     name = models.CharField(max_length=100)
     username = models.CharField(max_length=100, unique=True)
     created = models.DateTimeField(default=datetime.now, blank=True)
-    is_active = models.BooleanField(default = True)
+    active = models.BooleanField(default = True)
     staff = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
 
@@ -57,10 +58,10 @@ class User(AbstractBaseUser):
         return self.name
 
     def has_perm(self, perm, obj=None):
-        return True
+        return self.admin
 
     def has_module_perms(self, app_label):
-        return True
+        return self.staff or self.admin
 
     @property
     def is_staff(self):
@@ -69,3 +70,7 @@ class User(AbstractBaseUser):
     @property
     def is_admin(self):
         return self.admin
+
+    @property
+    def is_active(self):
+        return self.active
