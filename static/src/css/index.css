@@ -1,3 +1,7 @@
+.header {
+	font-size: 2.5em;
+}
+
 .container {
 	display: flex;
 	flex-direction: column;
@@ -29,7 +33,7 @@
 }
 
 .user .user-icon {
-	font-size: 1.5em;
+	font-size: 1.75em;
 }
 
 .info {
@@ -37,12 +41,16 @@
 	flex-direction: column;
 }
 
+.name {
+	font-size: 1.1em;
+}
+
 .username {
-	font-size: 0.75em;
+	font-size: 0.8em;
 	color: var(--btn-bg-color-primary);
 }
 
-.btn{  
+.btn {
   border-radius: 0.3em;
   font-size: 0.95em;
   font-weight: 600;

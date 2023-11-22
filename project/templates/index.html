@@ -26,16 +26,18 @@
 {# body content #}
 {% block content %}
 <div class="container">
-	<h1>Users</h1>
+	<h1 class="header">Users</h1>
 	<div class="users">
 		{% for user in users %}
 			{% if request.user.id != user.id %}
 			<div class="user">
 				<i class="input-icon uil uil-user user-icon"></i>
-				<div class="info">
-					<div class="name">{{ user.name }}</div>
-					<div class="username">{{ user.username }}</div>
-				</div>
+				<a href="{% url 'id_profile' id=user.id %}">
+					<div class="info">
+						<div class="name">{{ user.name }}</div>
+						<div class="username">{{ user.username }}</div>
+					</div>
+				</a>
 				<i class="input-icon uil uil-plus btn"></i>
 			</div>
 			{% endif %}
