@@ -36,6 +36,15 @@
 	font-size: 1.75em;
 }
 
+.user {
+	transition: box-shadow 200ms ease-in;
+	box-shadow: rgba(20, 20, 20, 0.4) 0px 7px 29px 0px;
+}
+
+.user:hover {
+	box-shadow: rgba(20, 20, 20, 0.6) 0px 7px 29px 0px;
+}
+
 .info {
 	display: flex;
 	flex-direction: column;
@@ -77,12 +86,12 @@
   box-shadow: 0 8px 24px 0 rgba(255,235,167,.2);
 }
 .btn:active,
-.btn:focus{  
+.btn:focus {  
   background-color: var(--btn-bg-color-primary);
   color: var(--btn-fg-color-primary);
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
-.btn:hover{  
+.btn:hover {  
   background-color: var(--btn-fg-color-primary);
   color: var(--btn-bg-color-primary);
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);

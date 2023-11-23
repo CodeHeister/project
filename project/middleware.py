@@ -1,7 +1,3 @@
-from django.shortcuts import redirect
-
-from .exceptions import Authenticated, NotAuthenticated, PermissionDenied
-
 class CustomAuthenticationMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response

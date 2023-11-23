@@ -1,8 +1,11 @@
 import bcrypt
 from django.db import models
+from django.utils.timezone import now
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
-from datetime import datetime
 from django.contrib.auth.hashers import make_password
+
+def default_friends():
+    return []
 
 class UserManager(BaseUserManager):
     def create_user(self, name, username, password=None, **kwargs):
@@ -39,7 +42,8 @@ class User(AbstractBaseUser):
 
     name = models.CharField(max_length=100)
     username = models.CharField(max_length=100, unique=True)
-    created = models.DateTimeField(default=datetime.now, blank=True)
+    friends = models.JSONField(default=default_friends)
+    created = models.DateTimeField(default=now, blank=True)
     active = models.BooleanField(default = True)
     staff = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)

@@ -10,21 +10,21 @@ from rest_framework import status, exceptions
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView, exception_handler
-from rest_framework.permissions import IsAuthenticated
 
 from .forms import SignupForm, LoginForm
-from .permissions import CustomIsAuthenticated, CustomNotAuthenticated
-from .exceptions import NotAuthenticated, Authenticated
+from .permissions import CustomIsAuthenticated, CustomIsNotAuthenticated
+from .exceptions import IsNotAuthenticated, IsAuthenticated
+from .exceptions import PermissionDenied as CustomPermissionDenied
 
 User = get_user_model()
 
 def rest_permission_denied_handler(exc, context):
     response = exception_handler(exc, context)
 
-    if isinstance(exc, Authenticated):
+    if isinstance(exc, IsAuthenticated):
         if getattr(exc, 'redirect_to_index', False):
             return redirect('index')
-    elif isinstance(exc, NotAuthenticated):
+    elif isinstance(exc, IsNotAuthenticated):
         if getattr(exc, 'redirect_to_login', False):
             return redirect('login')
 
@@ -32,7 +32,7 @@ def rest_permission_denied_handler(exc, context):
 
 class Login(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    permission_classes = [CustomNotAuthenticated]
+    permission_classes = [CustomIsNotAuthenticated]
     template_name = 'login.html'
 
     def post(self, request, *args, **kwargs):
@@ -63,9 +63,6 @@ class Login(APIView):
             return self.get(request, signup_form=form)
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect("index")
-
         login_form = kwargs['login_form'] if 'login_form' in kwargs else LoginForm()
         signup_form = kwargs['signup_form'] if 'signup_form' in kwargs else SignupForm()
         context = {
@@ -76,9 +73,7 @@ class Login(APIView):
         return Response(context)
 
 class Logout(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
     permission_classes = [CustomIsAuthenticated]
-    template_name = 'logout.html'
 
     def get(self, request):
         logout(request)
