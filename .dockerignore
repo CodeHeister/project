@@ -1,7 +1,6 @@
 *.log
 *.sqlite3
 .venv
-.flake8
 migrations
 __pycache__
 __*__.py
