@@ -27,12 +27,19 @@ Demo sandbox is available [here](https://project1-5ftmr1z3.b4a.run) _(__don't us
     - `docker build -t project:latest project`
     - `docker network create --driver=bridge --subnet=172.28.0.0/16 --ip-range=172.28.5.0/24 --gateway=172.28.5.254 project-network`
     - `docker run --name project-postgres -e POSTGRES_PASSWORD=test -e POSTGRES_USER=root -e POSTGRES_DB=project -d --network=project-network postgres`
-    - `docker run -d --name project-container --network=project-network -p 8000:8000 project:latest sh -c "python3 manage.py makemigrations && python3 manage.py migrate && python manage.py runserver 127.0.0.1:8000"`
-2. __Shell__ _(__old__)_
+    - `docker run -d --name project-container --network=project-network -p 8000:8000 project:latest sh -c "python3 manage.py makemigrations && python3 manage.py migrate && python manage.py runserver 0.0.0.0:8000"`
+2. __Shell__
     - `git clone https://github.com/CodeHeister/project.git && cd project`
     - `python3 -m venv .venv`
     - `source .venv/bin/activate`
     - `pip install --no-cache-dir -r requirements.txt`
+    - `initdb --locale=C.UTF-8 --encoding=UTF8 -D /var/lib/postgres/data --data-checksums`
+    - `psql -U postgres`
+        - `CREATE USER project-user WITH PASSWORD 'password';`
+        - `CREATE DATABASE project OWNER project-user;`
+        - `GRANT ALL PRIVILEGES ON DATABASE project TO project-user;`
+        - Add all that info in `~/.pg_service.conf` and `.project_pgpass`
+        - `chmod 600 .project_pgpass`
     - `python3 manage.py makemigrations && python3 manage.py migrate`
     - `python3 manage.py runserver 127.0.0.1:8000`
 
