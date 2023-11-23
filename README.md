@@ -25,8 +25,10 @@ Demo sandbox is available [here](https://project1-5ftmr1z3.b4a.run) _(__don't us
 1. __Docker__
     - `git clone https://github.com/CodeHeister/project.git`
     - `docker build -t project:latest project`
-    - `docker run -d --name project_container -p 8000:8000 project:latest`
-2. __Shell__
+    - `docker network create --driver=bridge --subnet=172.28.0.0/16 --ip-range=172.28.5.0/24 --gateway=172.28.5.254 project-network`
+    - `docker run --name project-postgres -e POSTGRES_PASSWORD=test -e POSTGRES_USER=root -e POSTGRES_DB=project -d --network=project-network postgres`
+    - `docker run -d --name project-container --network=project-network -p 8000:8000 project:latest sh -c "python3 manage.py makemigrations && python3 manage.py migrate && python manage.py runserver 127.0.0.1:8000"`
+2. __Shell__ _(__old__)_
     - `git clone https://github.com/CodeHeister/project.git && cd project`
     - `python3 -m venv .venv`
     - `source .venv/bin/activate`
