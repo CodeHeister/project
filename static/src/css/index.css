@@ -45,6 +45,13 @@
 	box-shadow: rgba(20, 20, 20, 0.6) 0px 7px 29px 0px;
 }
 
+.form-group {
+    background-image: url('../../images/pat.svg');
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .info {
 	display: flex;
 	flex-direction: column;
@@ -57,44 +64,6 @@
 .username {
 	font-size: 0.8em;
 	color: var(--btn-bg-color-primary);
-}
-
-.btn {
-  border-radius: 0.3em;
-  font-size: 0.95em;
-  font-weight: 600;
-  text-transform: uppercase;
-  -webkit-transition : color 200ms linear, background-color 200ms linear, box-shadow 200ms linear;
-  transition: color 200ms linear, background-color 200ms linear, box-shadow 200ms linear;
-  letter-spacing: 1px;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -moz-align-items: center;
-  -ms-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  -moz-justify-content: center;
-  -ms-justify-content: center;
-  justify-content: center;
-  -ms-flex-pack: center;
-  text-align: center;
-  border: none;
-  background-color: var(--btn-bg-color-primary);
-  color: var(--btn-fg-color-primary);
-  box-shadow: 0 8px 24px 0 rgba(255,235,167,.2);
-}
-.btn:active,
-.btn:focus {  
-  background-color: var(--btn-bg-color-primary);
-  color: var(--btn-fg-color-primary);
-  box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
-}
-.btn:hover {  
-  background-color: var(--btn-fg-color-primary);
-  color: var(--btn-bg-color-primary);
-  box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
 
 @media only screen and (max-width: 768px) {

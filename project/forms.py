@@ -75,3 +75,6 @@ class LoginForm(forms.Form):
 
             if not user.exists():
                 self.add_error('username', 'This username doesn\'t exists')
+
+class SearchForm(forms.Form):
+    username = forms.CharField(widget=UsernameWidget, max_length=100, required=False)

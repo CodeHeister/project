@@ -1,4 +1,4 @@
-class Cookie {
+class Cookies {
 	static set = (cname, cvalue, exmin) => {
 		try {
 			var d = new Date();

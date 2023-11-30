@@ -4,17 +4,22 @@ from django.core.exceptions import PermissionDenied
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.contrib.auth.decorators import login_required
 
-from rest_framework import status, exceptions
+from rest_framework import status, exceptions, viewsets
+from rest_framework.decorators import action
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView, exception_handler
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
 
-from .forms import SignupForm, LoginForm
+from .forms import SignupForm, LoginForm, SearchForm
 from .permissions import CustomIsAuthenticated, CustomIsNotAuthenticated
 from .exceptions import IsNotAuthenticated, IsAuthenticated
 from .exceptions import PermissionDenied as CustomPermissionDenied
+from .serializers import UserSerializer, FriendSerializer
+
+from .extra.algorithms import *
 
 User = get_user_model()
 
@@ -84,8 +89,26 @@ class Index(APIView):
     permission_classes = [CustomIsAuthenticated]
     template_name = 'index.html'
 
+    def post(self, request, **kwargs):
+        form = SearchForm(request.POST)
+        context = {
+                "search_form" : form,
+                "users" : []
+                }
+
+        if form.is_valid():
+            username = request.POST["username"]
+            users = User.objects.all()
+            users = quicksort_users(users)
+            first_index = binary_search_first(users, username)
+            last_index = binary_search_last(users, username)
+            context["users"] = users[first_index:last_index+1]
+
+        return Response(context)
+
     def get(self, request):
         context = {
+                "search_form" : SearchForm(),
                 "users" : User.objects.all()
                 }
         return Response(context)
@@ -94,18 +117,118 @@ class Profile(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'profile.html'
 
-    def get(self, request, **kwargs):
+    def get(self, request, id=None, username=None):
         user = None
+        search_form = SearchForm()
 
-        if 'id' in kwargs:
-            id = kwargs['id']
+        if id:
             user = User.objects.filter(id=id)
-
-        elif 'username' in kwargs:
-            username = kwargs['username']
+        elif username:
             user = User.objects.filter(username=username)
 
-        context = {}
+        context = {
+                'search_form' : search_form
+                }
         if user and user.exists():
             context["profile"] = user.get()
         return Response(context)
+
+class Friend(viewsets.ViewSet):
+    permission_classes = [CustomIsAuthenticated]
+    serializer_class = FriendSerializer
+    queryset = User.objects.all()
+
+    @action(detail=False, methods=['post'])
+    def view(self, request):
+        user = request.user
+
+        serializer = FriendSerializer(data=request.data)
+        if serializer.is_valid():
+            friend_data = serializer.validated_data
+            friend = User.objects.filter(id=friend_data.get("id"))
+
+            if friend.exists():
+                friend = friend.get()
+                friend_data = UserSerializer(friend).data
+
+                return Response(UserSerializer(friend).data)
+
+            return Response(UserSerializer(user).data)
+        else:
+            return Response(serializer.errors, status=400)
+
+
+    @action(detail=False, methods=['post'])
+    def add(self, request):
+        user = request.user
+        serializer = FriendSerializer(data=request.data)
+
+        if serializer.is_valid():
+            friend_data = serializer.validated_data
+            friend = User.objects.filter(id=friend_data.get("id"))
+
+            if friend.exists():
+                friend = friend.get()
+                friend_id = str(friend.id)
+                user_id = str(user.id)
+
+                if friend_id not in user.friends and friend.id != user.id:
+                    try:
+                        user.friends.append(friend_id)
+                        friend.friends.append(user_id)
+                    except Exception as e:
+                        print(e)
+                    finally:
+                        user.save()
+                        friend.save()
+                        return Response(FriendSerializer(friend).data)
+
+                return Response({})
+        else:
+            return Response(serializer.errors, status=400)
+
+    @action(detail=False, methods=['post'])
+    def remove(self, request):
+        user = request.user
+        serializer = FriendSerializer(data=request.data)
+
+        if serializer.is_valid():
+            friend_data = serializer.validated_data
+            friend = User.objects.filter(id=friend_data.get("id"))
+
+            if friend.exists():
+                friend = friend.get()
+                friend_id = str(friend.id)
+                user_id = str(user.id)
+
+                if friend_id in user.friends and friend.id != user.id:
+                    try:
+                        user.friends.remove(friend_id)
+                        friend.friends.remove(user_id)
+                    except Exception as e:
+                        print(e)
+                    finally:
+                        user.save()
+                        friend.save()
+                        return Response(FriendSerializer(friend).data)
+
+                return Response({})
+        else:
+            return Response(serializer.errors, status=400)
+
+    @action(detail=False, methods=['post'])
+    def intersection(self, request):
+        user = request.user
+        serializer = FriendSerializer(data=request.data)
+
+        if serializer.is_valid():
+            friend_data = serializer.validated_data
+            friend = User.objects.filter(id=friend_data.get("id"))
+
+            if friend.exists():
+                friend = friend.get()
+                friend_id = str(friend.id)
+
+                return Response(find_intersection(user.id, friend.id, 3))
+        else:
+            return Response(serializer.errors, status=400)
