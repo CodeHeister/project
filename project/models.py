@@ -1,4 +1,6 @@
+import uuid
 import bcrypt
+
 from django.db import models
 from django.utils.timezone import now
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
@@ -10,7 +12,7 @@ def default_friends():
 class UserManager(BaseUserManager):
     def create_user(self, name, username, password=None, **kwargs):
         if not name or not username:
-            raise ValueError('Users must have an email address')
+            raise ValueError('Users must have an username and name')
 
         user = self.model(name=name, username=username, **kwargs)
         user.set_password(password)
@@ -39,7 +41,7 @@ class UserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser):
-
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
     username = models.CharField(max_length=100, unique=True)
     friends = models.JSONField(default=default_friends)

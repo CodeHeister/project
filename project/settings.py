@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'project',
     'macros',
     'fontawesomefree',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
