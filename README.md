@@ -38,7 +38,7 @@ Demo sandbox is available [here](https://project1-5ftmr1z3.b4a.run) _(__don't us
         - `CREATE USER project-user WITH PASSWORD 'password';`
         - `CREATE DATABASE project OWNER project-user;`
         - `GRANT ALL PRIVILEGES ON DATABASE project TO project-user;`
-        - Add all that info in `~/.pg_service.conf` and `.project_pgpass`
+        - Add `project_service` in `~/.pg_service.conf` and `host:port:db:user:password:` in `.project_pgpass`
         - `chmod 600 .project_pgpass`
     - `python3 manage.py makemigrations && python3 manage.py migrate`
     - `python3 manage.py runserver 127.0.0.1:8000`
