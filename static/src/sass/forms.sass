@@ -1,0 +1,131 @@
+@import 'media'
+@import 'prefixes'
+@import 'variables'
+
+@mixin input-types($types...)
+  %text
+    min-width: 0
+    max-width: 100%
+
+  %password
+    @extend %text
+
+  %submit
+    width: fit-content
+
+  @each $type in $types
+    input[type="#{$type}"]
+      @extend %#{$type} !optional
+
+@mixin default-placeholder($prefixes...)
+  $iterator: (placeholder, input-placeholder)
+  
+  %placeholder
+    color: $fg-color-primary
+    opacity: 0.7
+    @include prefix(transition-property, "color, opacity", webkit)
+    @include prefix(transition-duration, $transition-speed, webkit)
+    @include prefix(transition-timing-function, linear, webkit)
+
+  %input
+    opacity: 0
+
+  @each $prefix in $prefixes
+    @each $key in $iterator
+      input::#{if($prefix == "std", '', '-' + $prefix + '-')}#{$key}
+        @extend %placeholder !optional
+
+      input:focus::#{if($prefix == "std", '', '-' + $prefix + '-')}#{$key}
+        @extend %input !optional
+
+%default-flex
+  max-width: 100%
+  gap: 1em
+  display: flex
+
+%default-form-items
+  align-items: center
+  @include input-types(text, password, submit)
+
+.vert-form
+  @extend %default-flex
+  @extend %default-form-items
+  flex-direction: column
+
+.horiz-form
+  @extend %default-flex
+  @extend %default-form-items
+  flex-direction: row
+
+  @include media("max-width: 768px")
+    flex-direction: column
+
+  @include media("min-width: 768px")
+    flex-direction: row
+
+.form-group
+  @extend %default-flex
+  margin: 0
+  padding: 0.8em 1.4em
+  position: relative
+  border-radius: 0.3em
+  background-color: $bg-color-primary
+  @include prefix(box-shadow, rgba($box-shadow-color-primary, 0.3) 0px 7px 29px 0px, webkit)
+  @include prefix(transition, box-shadow $transition-speed linear, webkit)
+
+.form-style 
+  padding: 0
+  letter-spacing: 0.5px
+  outline: none
+  color: $fg-color-primary
+  background-color: transparent
+  border: none
+  @include prefix(transition, box-shadow $transition-speed linear, webkit)
+  @include prefix(font-smoothing, antialiased, webkit)
+  
+  &:focus, &:active 
+    border: none
+    outline: none
+
+.input-icon 
+  display: contents
+  font-size: 1.5em
+  text-align: center
+  color: $btn-bg-color-primary
+  @include prefix(transition, color $transition-speed linear, webkit)
+
+.form-group
+  @include default-placeholder(ms, moz, webkit)
+
+  &:focus-within 
+    box-shadow: rgba($box-shadow-color-primary, 0.5) 0px 7px 29px 0px
+
+.btn 
+  display: inline-flex
+  font-size: 0.95em
+  font-weight: 600
+  letter-spacing: 1px
+  text-align: center
+  text-transform: uppercase
+  @include prefix(transition, "color, background-color, box-shadow", webkit)
+  @include prefix(transition-duration, $transition-speed, webkit)
+  @include prefix(transition-timing-function, linear, webkit)
+  @include prefix(align-items, center, webkit, moz, ms, o)
+  @include prefix(justify-items, center, webkit, moz, ms, o)
+  @include prefix(flex-pack, justify, webkit, ms)
+  border: none
+  border-radius: 0.3em
+  color: $btn-fg-color-primary
+  background-color: $btn-bg-color-primary
+  box-shadow: 0 8px 24px 0 rgba($btn-bg-color-primary, .2)
+  
+  &:active, &:focus
+    color: $btn-fg-color-primary
+    background-color: $btn-bg-color-primary
+
+  &:hover   
+    color: $btn-bg-color-primary
+    background-color: $btn-fg-color-primary
+
+  &:active, &:focus, &:hover
+    box-shadow: 0 8px 24px 0 rgba($btn-fg-color-primary, .2)

@@ -1,0 +1,28 @@
+<nav class="navbar">
+	<ul class="navbar-nav">
+		<li class="logo">
+			<a href="{% url 'index' %}" class="nav-link">
+				<i class="nav-icon uil uil-code-branch"></i>
+				<span class="link-text">Demo</span>
+			</a>
+		</li>
+		<li class="nav-item">
+			<a href="{% url 'profile-username' request.user.id %}" class="nav-link">
+				<i class="nav-icon uil uil-chat-bubble-user"></i>
+				<span class="link-text">Profile</span>
+			</a>
+		</li>
+		<li class="nav-item">
+			<a href="{% url 'friend-intersection' %}" class="nav-link">
+				<i class="nav-icon uil uil-external-link-alt"></i>
+				<span class="link-text">Intersection</span>
+			</a>
+		</li>
+		<li class="nav-item">
+			<a href="{% url 'logout' %}" class="nav-link">
+				<i class="nav-icon uil uil-signout"></i>
+				<span class="link-text">Logout</span>
+			</a>
+		</li>
+	</ul>
+</nav>

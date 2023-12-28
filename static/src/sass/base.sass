@@ -1,0 +1,101 @@
+@import 'media'
+@import 'prefixes'
+@import 'variables'
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900')
+
+@font-face
+  font-family: 'Inter'
+  src: url("/fonts/inter.ttf")
+  font-display: swap
+
+body, html
+  margin: 0
+  padding: 0
+  height: 100%
+  width: 100%
+  background-color: $bg-color-primary !important
+
+body
+  font-family: $font-primary, $font-secondary, sans-serif
+  font-weight: 300
+  line-height: 1.7
+  color: $fg-color-primary
+  overflow-x: hidden
+  @include prefix(font-smoothing, antialiased, webkit)
+  @include prefix(font-smoothing, grayscale, moz-osx)
+  text-rendering: optimizeLegibility
+
+  @include media("max-width: 600px")
+    // Extra small devices (phones, 600px and down)
+    font-size: 0.7rem
+
+  @include media("min-width: 600px")
+    // Small devices (portrait tablets and large phones, 600px and up)
+    font-size: 0.75rem
+
+  @include media("min-width: 768px")
+    // Medium devices (landscape tablets, 768px and up)
+    font-size: 0.8rem
+
+  @include media("min-width: 992px")
+    // Large devices (laptops/desktops, 992px and up)
+    font-size: 0.9rem
+
+  @include media("min-width: 1200px")
+    // Extra large devices (large laptops and desktops, 1200px and up)
+    font-size: 0.95rem
+
+a
+  color: $link-color
+  text-decoration: none
+  cursor: pointer
+  @include prefix(transition, color $transition-speed linear, webkit)
+
+  &:hover
+    text-decoration: none
+
+main 
+  @include media("max-width: 768px") 
+    margin-bottom: 5em
+
+  @include media("min-width: 768px") 
+    margin-left: 8em
+
+.left 
+  @include media("min-width: 768px") 
+    padding: 0 1em 0 5em
+
+.right 
+  @include media("min-width: 768px") 
+    padding: 0 5em 0 1em
+
+.container 
+  display: flex
+  flex-direction: column
+  gap: 2em
+  width: 100%
+  padding: 4em 1em 0em 1em
+  margin-right: auto
+  margin-left: auto
+
+.full-height
+  min-height: 100vh
+
+.noselect
+  @include prefix(touch-callout, none, webkit)
+  @include any-prefix(user-select, none)
+
+::-webkit-scrollbar
+  width: 1.4em
+
+::-webkit-scrollbar-track
+  background-color: transparent
+
+::-webkit-scrollbar-thumb
+  background-color: $fg-color-primary
+  border-radius: 1em
+  border: 6px solid transparent
+  background-clip: content-box
+
+  &:hover
+    background-color: lighten($fg-color-primary, 10%)

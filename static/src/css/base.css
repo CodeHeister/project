@@ -1,96 +1,127 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
-
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900");
 @font-face {
-	font-family: 'Inter';
-	src 		: url("/fonts/inter.ttf");
-	font-display: swap;
+  font-family: "Inter";
+  src: url("/fonts/inter.ttf");
+  font-display: swap;
 }
-
-:root {
-	--bg-color-primary: #1f2029; 
-	--bg-color-secondary: #2a2b38;
-	--fg-color-primary: #c4c3ca;
-	--btn-bg-color-primary: #ffeba7;
-	--btn-fg-color-primary: #102770;
-	--link-color: #3291ff;
-	--font-primary: 'Poppins';
-	--font-secondary: 'Inter';
-}
-
 body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-	background-color: var(--bg-color-primary) !important;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #1f2029 !important;
 }
 
 body {
-	font-family: var(--font-primary), var(--font-secondary), sans-serif;
-	font-weight: 300;
-	line-height: 1.7;
-	color: var(--fg-color-primary);
-	overflow-x: hidden;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-rendering: optimizeLegibility;
+  font-family: "Poppins", "Inter", sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #c4c3ca;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: 0.7rem;
+  }
+}
+@media only screen and (min-width: 600px) {
+  body {
+    font-size: 0.75rem;
+  }
+}
+@media only screen and (min-width: 768px) {
+  body {
+    font-size: 0.8rem;
+  }
+}
+@media only screen and (min-width: 992px) {
+  body {
+    font-size: 0.9rem;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  body {
+    font-size: 0.95rem;
+  }
 }
 
 a {
-	color: var(--link-color);
-	text-decoration: none;
-	cursor: pointer;
-	transition: color 200ms linear;
+  color: #3291ff;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-transition: color 200ms linear;
+  transition: color 200ms linear;
 }
-
 a:hover {
-	text-decoration: none;
+  text-decoration: none;
 }
 
-.full-height{
+@media only screen and (max-width: 768px) {
+  main {
+    margin-bottom: 5em;
+  }
+}
+@media only screen and (min-width: 768px) {
+  main {
+    margin-left: 8em;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .left {
+    padding: 0 1em 0 5em;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .right {
+    padding: 0 5em 0 1em;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  width: 100%;
+  padding: 4em 1em 0em 1em;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.full-height {
   min-height: 100vh;
 }
 
 .noselect {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  -webkit-touch-callout: none;
+  touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-	body {
-		font-size: 0.7rem;
-	}
+::-webkit-scrollbar {
+  width: 1.4em;
 }
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-	body {
-		font-size: 0.75rem;
-	}
+::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-	body {
-		font-size: 0.8rem;
-	}
+::-webkit-scrollbar-thumb {
+  background-color: #c4c3ca;
+  border-radius: 1em;
+  border: 6px solid transparent;
+  background-clip: content-box;
 }
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-	body {
-		font-size: 0.9rem;
-	}
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-	body {
-		font-size: 0.95rem;
-	}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #dfdee2;
 }

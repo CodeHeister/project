@@ -1,64 +1,69 @@
 .link {
-  color: var(--fg-color-primary);
+  color: #c4c3ca;
 }
 .link:hover {
-  color: var(--btn-bg-color-primary);
+  color: #ffeba7;
 }
+
 p {
-  font-weight: 500;
   font-size: 0.95em;
+  font-weight: 500;
   line-height: 1.7;
 }
+
 ul {
-	padding-inline-start: 0.5em;
+  padding-inline-start: 0.5em;
 }
 
 h4 {
-	font-size: 1.65em;
+  font-size: 1.65em;
   font-weight: 600;
-  color: var(--fg-color-primary) !important;
+  color: #c4c3ca !important;
 }
 
 h6 {
-	font-size: 1em;
+  font-size: 1em;
 }
-
-h6 span{
+h6 span {
   padding: 0 1.4em;
   text-transform: uppercase;
   font-weight: 700;
-  color: var(--fg-color-primary) !important;
+  color: #c4c3ca !important;
 }
 
-.container {
-  position: relative;
-  width: 100%;
-  height: 100%;
+.section, .container {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: relative;
   align-items: center;
 }
 
-.section{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+@media only screen and (max-width: 768px) {
+  .container {
+    padding-top: 2em;
+    justify-content: top;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .container {
+    justify-content: center;
+  }
+}
+
+.section {
   justify-content: center;
 }
 
 .centrify {
-	padding: 1em 1.5em 7em 1.5em;
+  padding: 1em 1.5em 7em 1.5em;
 }
 
 .hidden-checkbox {
-	display: none;
+  display: none;
 }
-
-.hidden-checkbox:checked + label,
-.hidden-checkbox:not(:checked) + label{
+.hidden-checkbox:checked + label, .hidden-checkbox:not(:checked) + label {
   position: relative;
   display: block;
   text-align: center;
@@ -68,22 +73,20 @@ h6 span{
   padding: 0;
   margin: 0.7em auto;
   cursor: pointer;
-  background-color: var(--btn-bg-color-primary);
+  background-color: #ffeba7;
 }
-.hidden-checkbox:checked + label:before,
-.hidden-checkbox:not(:checked) + label:before{
-	--checkbox-size : 1.7em;
+.hidden-checkbox:checked + label:before, .hidden-checkbox:not(:checked) + label:before {
   position: absolute;
   display: block;
-  width: var(--checkbox-size);
-  height: var(--checkbox-size);
-  font-size: var(--checkbox-size);
-  line-height: var(--checkbox-size);
+  width: 1.7em;
+  height: 1.7em;
+  font-size: 1.7em;
+  line-height: 1.7em;
   border-radius: 50%;
-  color: var(--btn-bg-color-primary);
+  color: #ffeba7;
   background-color: #102770;
-  font-family: 'unicons-line';
-  content: '\eb5b';
+  font-family: "unicons-line";
+  content: "\eb5b";
   z-index: 20;
   top: 50%;
   left: 0%;
@@ -92,10 +95,12 @@ h6 span{
   transform: translate(-50%, -50%) rotate(-90deg);
 }
 .hidden-checkbox:checked + label:before {
-	left: 100%;
+  left: 100%;
   transform: translate(-50%, -50%) rotate(-360deg);
 }
-
+.hidden-checkbox:checked ~ .card-3d-wrap .card-3d-wrapper {
+  transform: rotateY(180deg);
+}
 
 .card-3d-wrap {
   position: relative;
@@ -105,59 +110,49 @@ h6 span{
   perspective: 800px;
   margin-top: 3em;
 }
+
 .card-3d-wrapper {
-	display: grid;
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-    transition: transform 600ms ease-out;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+  display: grid;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: transform 600ms ease-out;
+  transition: transform 600ms ease-out;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
 }
+
 .card-front, .card-back {
-	min-width: 21.5em;
-	display: flex;
-    position: relative;
-    grid-row-start: 1;
-    grid-column-end: 1;
-    grid-column-start: 1;
-    background-color: var(--bg-color-secondary);
-    background-image: url('../../images/pat.svg');
-    background-position: bottom center;
-    background-repeat: no-repeat;
-    background-size: 300%;
-    border-radius: 0.4em;
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    -o-backface-visibility: hidden;
-    backface-visibility: hidden;
-    align-content: center;
-    justify-content: center;
-    flex-direction: column;
+  min-width: 21.5em;
+  display: flex;
+  position: relative;
+  grid-row-start: 1;
+  grid-column-end: 1;
+  grid-column-start: 1;
+  background-color: #2a2b38;
+  background-image: url("../../images/pat.svg");
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: 300%;
+  border-radius: 0.4em;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
 }
+
 .card-back {
   transform: rotateY(180deg);
 }
-.hidden-checkbox:checked ~ .card-3d-wrap .card-3d-wrapper {
-  transform: rotateY(180deg);
-}
-.center-wrap{
-	position: relative;
-    padding: 2rem;
-    transform: translate3d(0, 0, 1.75rem) perspective(100px);
-    z-index: 20;
-}
 
-@media only screen and (max-width: 768px) {
-	.container {
-		padding-top: 2em;
-		justify-content: top;
-	}
-}
-
-@media only screen and (min-width: 768px) {
-	.container {
-		justify-content: center;
-	}
+.center-wrap {
+  position: relative;
+  padding: 2rem;
+  transform: translate3d(0, 0, 1.75rem) perspective(100px);
+  z-index: 20;
 }

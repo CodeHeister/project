@@ -32,6 +32,7 @@ Demo sandbox is available [here](https://project1-5ftmr1z3.b4a.run) _(__don't us
     - `git clone https://github.com/CodeHeister/project.git && cd project`
     - `python3 -m venv .venv`
     - `source .venv/bin/activate`
+    - `sass static/src/sass:static/src/css --no-source-map --quiet --update`
     - `pip install --no-cache-dir -r requirements.txt`
     - `initdb --locale=C.UTF-8 --encoding=UTF8 -D /var/lib/postgres/data --data-checksums`
     - `psql -U postgres`

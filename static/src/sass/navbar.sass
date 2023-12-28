@@ -1,0 +1,114 @@
+@import 'media'
+@import 'prefixes'
+@import 'variables'
+
+.navbar 
+  position: fixed
+  background-color: rgba($bg-color-primary, 0.8)
+  overflow: hidden
+  z-index: 2
+
+  @include media("max-width: 768px") 
+    bottom: 0
+    width: 100vw
+    height: fit-content
+
+  @include media("min-width: 768px")
+    top: 0
+    width: fit-content
+    height: 100vh
+
+    &:hover 
+      .link-text 
+        display: inline
+
+      .logo .nav-icon:before
+          transform: rotateX(-180deg)
+
+.navbar-nav 
+  width: 100%
+  list-style: none
+  padding: 0
+  margin: 0
+  display: flex
+  flex-direction: column
+  align-items: center
+  height: 100%
+
+  @include media("max-width: 768px") 
+    flex-direction: row
+
+.nav-item 
+  width: 100%
+
+  @include media("min-width: 768px") 
+    &:last-child 
+      margin-top: auto
+
+.nav-link 
+  display: flex
+  align-items: center
+  height: 5em
+  gap: 1em
+  border-radius: 0.5em
+  color: $fg-color-primary
+  text-decoration: none
+  filter: grayscale(100%) opacity(0.7)
+  padding: 0 .75em 0 .75em !important
+  @include prefix(transition-property, "color, filter", webkit)
+  @include prefix(transition-duration, $transition-speed, webkit)
+  @include prefix(transition-timing-function, ease, webkit)
+
+  &:hover
+    filter: grayscale(0%) opacity(1)
+    color: $fg-color-secondary
+
+  @include media("max-width: 768px") 
+    justify-content: center
+
+  @include media("min-width: 768px") 
+    &:hover
+      background: $bg-color-secondary
+
+.link-text 
+  letter-spacing: 0.2ch
+  display: none
+  margin-left: 0
+  margin-right: auto
+  word-spacing: 0.1ch
+
+.logo 
+  font-weight: bold
+  text-transform: uppercase
+  margin-bottom: 1em
+  text-align: center
+  border-radius: 0.5em
+  color: $fg-color-secondary
+  background: $bg-color-secondary
+  font-size: 1.25em
+  letter-spacing: 0.3ch
+  width: 100%
+
+  & .link-text
+    margin-left: 0
+
+  & .nav-icon:before
+    transform: rotate(0deg)
+    @include prefix(transition-property, "transform, color", webkit)
+    @include prefix(transition-duration, $transition-speed, webkit)
+    @include prefix(transition-timing-function, ease, webkit)
+
+  @include media("max-width: 768px") 
+    display: none
+
+.nav-icon
+  display: contents
+  font-size: 1.75em
+  text-align: center
+  color: $btn-bg-color-primary
+  @include prefix(transition, color $transition-speed linear, webkit)
+
+  @include media("min-width: 768px") 
+    &:before
+      margin-right: auto
+      @include prefix(transition, margin $transition-speed linear, webkit)

@@ -1,0 +1,143 @@
+@import 'media'
+@import 'prefixes'
+@import 'variables'
+
+.link 
+  color: $fg-color-primary
+
+  &:hover 
+    color: $btn-bg-color-primary
+
+p 
+  font-size: 0.95em
+  font-weight: 500
+  line-height: 1.7
+
+ul 
+  padding-inline-start: 0.5em
+
+h4 
+  font-size: 1.65em
+  font-weight: 600
+  color: $fg-color-primary !important
+
+h6 
+  font-size: 1em
+
+  & span
+    padding: 0 1.4em
+    text-transform: uppercase
+    font-weight: 700
+    color: $fg-color-primary !important
+
+%default-flex
+  display: flex
+  flex-direction: column
+  width: 100%
+  height: 100%
+  position: relative
+  align-items: center
+
+.container 
+  @extend %default-flex
+
+  @include media("max-width: 768px") 
+    padding-top: 2em
+    justify-content: top
+
+  @include media("min-width: 768px") 
+    justify-content: center
+
+.section
+  @extend %default-flex
+  justify-content: center
+
+.centrify 
+  padding: 1em 1.5em 7em 1.5em
+
+.hidden-checkbox 
+  display: none
+
+  &:checked + label, &:not(:checked) + label
+    position: relative
+    display: block
+    text-align: center
+    width: 4.15em
+    height: 1.1em
+    border-radius: 0.55em
+    padding: 0
+    margin: 0.7em auto
+    cursor: pointer
+    background-color: $btn-bg-color-primary
+
+  &:checked + label:before, &:not(:checked) + label:before
+    $checkbox-size : 1.7em
+    position: absolute
+    display: block
+    width: $checkbox-size
+    height: $checkbox-size
+    font-size: $checkbox-size
+    line-height: $checkbox-size
+    border-radius: 50%
+    color: $btn-bg-color-primary
+    background-color: #102770
+    font-family: 'unicons-line'
+    content: '\eb5b'
+    z-index: 20
+    top: 50%
+    left: 0%
+    text-align: center
+    transition: left 0.5s ease, transform 0.5s ease
+    transform: translate(-50%, -50%) rotate(-90deg)
+
+  &:checked + label:before 
+    left: 100%
+    transform: translate(-50%, -50%) rotate(-360deg)
+  
+  &:checked ~ .card-3d-wrap .card-3d-wrapper 
+    transform: rotateY(180deg)
+
+
+
+.card-3d-wrap 
+  position: relative
+  max-width: 100%
+  @include prefix(transform-style, preserve-3d, webkit)
+  perspective: 800px
+  margin-top: 3em
+
+.card-3d-wrapper 
+  display: grid
+  @include prefix(transform-style, preserve-3d, webkit)
+  @include prefix(transition, transform 600ms ease-out, webkit)
+  grid-template-columns: 1fr
+  grid-template-rows: 1fr
+
+.card-front, .card-back 
+  min-width: 21.5em
+  display: flex
+  position: relative
+  grid-row-start: 1
+  grid-column-end: 1
+  grid-column-start: 1
+  background-color: $bg-color-secondary
+  background-image: url('../../images/pat.svg')
+  background-position: bottom center
+  background-repeat: no-repeat
+  background-size: 300%
+  border-radius: 0.4em
+  -webkit-transform-style: preserve-3d
+  @include prefix(transform-style, preserve-3d, webkit)
+  @include prefix(backface-visibility, hidden, webkit, moz, o)
+  align-content: center
+  justify-content: center
+  flex-direction: column
+
+.card-back 
+  transform: rotateY(180deg)
+
+.center-wrap
+  position: relative
+  padding: 2rem
+  transform: translate3d(0, 0, 1.75rem) perspective(100px)
+  z-index: 20

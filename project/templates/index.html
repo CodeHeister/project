@@ -21,60 +21,65 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="preload" href="{% static "src/css/index.css" %}" as="style"/>
 	<link rel="preload" href="{% static "src/css/forms.css" %}" as="style"/>
+	<link rel="preload" href="{% static "src/css/navbar.css" %}" as="style"/>
 	<link rel="stylesheet" href="{% static "src/css/index.css" %}"/>
 	<link rel="stylesheet" href="{% static "src/css/forms.css" %}"/>
+	<link rel="stylesheet" href="{% static "src/css/navbar.css" %}"/>
 	<script src="{% static "src/js/cookies.js" %}" defer></script>
 	<script src="{% static "src/js/add_friend.js" %}" defer></script>
 {% endblock %}
 
 {# body content #}
 {% block content %}
-<div class="container">
-	<h1 class="header">Users</h1>
-	<form action="{% url 'index' %}" method="post" class="horiz-form">
-		{% csrf_token %}
-		{% if messages %}
-			<ul class="mt-2 messages">
-				{% for message in messages %}
-					<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-				{% endfor %}
-			</ul>
-		{% endif %}
-		{% for field in search_form %}
-		{% if field.field.widget.input_type != 'hidden' %} <div class="form-group"> {% endif %}
-			{{ field }}
-		{% if field.field.widget.input_type != 'hidden' %} </div> {% endif %}
-		{% if field.errors %}
-			<ul class="mt-2 errorlist">
-				{% for error in field.errors %}
-				<li>{{ error }}</li>
-				{% endfor %}
-			</ul>
-		{% endif %}
-		{% endfor %}
-		<input type="submit" class="btn"/>
-	</form>
-	<div class="users">
-		{% for user in users %}
-			{% if request.user.id != user.id %}
-			<div class="user">
-				<i class="input-icon uil uil-user user-icon"></i>
-				<a href="{% url 'profile-id' id=user.id %}">
-					<div class="info">
-						<div class="name">{{ user.name }}</div>
-						<div class="username">{{ user.username }}</div>
-					</div>
-				</a>
-				{% if user.id|stringformat:"s" in request.user.friends %}
-				<i class="input-icon uil uil-minus btn" id="{{ user.id }}"></i>
-				{% else %}
-				<i class="input-icon uil uil-plus btn" id="{{ user.id }}"></i>
-				{% endif %}
-			</div>
+{% include "navbar.html" %}
+<main>
+	<div class="container">
+		<h1 class="header">Users</h1>
+		<form action="{% url 'index' %}" method="post" class="horiz-form">
+			{% csrf_token %}
+			{% if messages %}
+				<ul class="mt-2 messages">
+					{% for message in messages %}
+						<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+					{% endfor %}
+				</ul>
 			{% endif %}
-		{% endfor %}
+			{% for field in search_form %}
+			{% if field.field.widget.input_type != 'hidden' %} <div class="form-group"> {% endif %}
+				{{ field }}
+			{% if field.field.widget.input_type != 'hidden' %} </div> {% endif %}
+			{% if field.errors %}
+				<ul class="mt-2 errorlist">
+					{% for error in field.errors %}
+					<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+			{% endfor %}
+			<input type="submit" class="btn"/>
+		</form>
+		<div class="users">
+			{% for user in users %}
+				{% if request.user.id != user.id %}
+				<div class="user">
+					<i class="input-icon uil uil-user user-icon"></i>
+					<a href="{% url 'profile-id' id=user.id %}">
+						<div class="info">
+							<div class="name">{{ user.name }}</div>
+							<div class="username">{{ user.username }}</div>
+						</div>
+					</a>
+					{% if user.id|stringformat:"s" in request.user.friends %}
+					<i class="input-icon uil uil-minus btn" id="{{ user.id }}"></i>
+					{% else %}
+					<i class="input-icon uil uil-plus btn" id="{{ user.id }}"></i>
+					{% endif %}
+				</div>
+				{% endif %}
+			{% endfor %}
+		</div>
 	</div>
-</div>
+</main>
 
 {% if messages %}
 	<ul class="messages">
