@@ -1,0 +1,7 @@
+.qr-code {
+  width: 20em;
+  height: 20em;
+}
+.qr-code path {
+  fill: #c4c3ca;
+}

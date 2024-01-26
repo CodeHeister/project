@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'project',
     'macros',
     'fontawesomefree',
-    'rest_framework'
+    'rest_framework',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

@@ -20,6 +20,9 @@ from .exceptions import PermissionDenied as CustomPermissionDenied
 from .serializers import UserSerializer, FriendSerializer
 
 from .extra.algorithms import *
+from .qr_code import QrCodeFactory
+
+import uuid
 
 User = get_user_model()
 
@@ -131,6 +134,14 @@ class Profile(APIView):
                 }
         if user and user.exists():
             context["profile"] = user.get()
+            context["intersection"] = []
+            intersection = find_intersection(request.user.id, user.get().id, 3)
+            for id in intersection["targets"]:
+                user = User.objects.filter(id=id)
+                if user and user.exists():
+                    context["intersection"].append(user.get())
+                    print(context["intersection"])
+
         return Response(context)
 
 class Friend(viewsets.ViewSet):
@@ -232,3 +243,18 @@ class Friend(viewsets.ViewSet):
                 return Response(find_intersection(user.id, friend.id, 3))
         else:
             return Response(serializer.errors, status=400)
+
+class QrCode(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    permission_classes = [CustomIsAuthenticated]
+    template_name = 'qr-code.html'
+
+    def get(self, request):
+        img = QrCodeFactory(str(request.user.id))
+        context = {
+                "type" : "svg",
+                "img" : img.svg(),
+                "img_data_uri" : img.png(text="{0}: {1}".format("Name", request.user.name))
+                }
+
+        return Response(context)
